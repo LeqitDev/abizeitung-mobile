@@ -1,4 +1,5 @@
 import 'package:abizeitung_mobile/api/api.dart';
+import 'package:abizeitung_mobile/models/comment_model.dart';
 import 'package:abizeitung_mobile/models/user_model.dart';
 import 'package:mobx/mobx.dart';
 
@@ -14,7 +15,7 @@ abstract class _AppStore with Store {
 
   List<User>? _students;
   List<Teacher>? _teachers;
-  // List<Comment>? _comments;
+  List<Comment>? _comments;
   // List<Phrase>? _phrases;
 
   @observable
@@ -44,7 +45,7 @@ abstract class _AppStore with Store {
 
   @action
   void loadAll(AppStore appStore) {
-    // loadAppUsersComments(appStore);
+    loadAppUsersComments(appStore);
     loadStudentsAndTeachers(appStore);
     // loadPhrases(appStore);
     /* Future.delayed(const Duration(seconds: 10), () {
@@ -52,10 +53,10 @@ abstract class _AppStore with Store {
     }); */
   }
 
-  /* @action
+  @action
   Future loadAppUsersComments(AppStore appStore) async {
     final _commentsDatabase = await Comment().getComments(appStore,
-        userid: appStore.api.usr.getID, userGroup: "student");
+        userid: appStore.appUser.getID, userGroup: "student");
     if (_commentsDatabase.length > 1 && _comments == null) {
       _comments = _commentsDatabase;
       haveComments = true;
@@ -135,8 +136,8 @@ abstract class _AppStore with Store {
   }
 
   updateNewComments(List<Comment> comments, AppStore appStore) {
-    for (var element in comments) {
-      if (element.isNew) element.updateNew(appStore, element);
+    for (var comment in comments) {
+      if (comment.isNew) comment.updateNew(appStore);
     }
   }
 
@@ -148,7 +149,7 @@ abstract class _AppStore with Store {
   }
 
   @computed
-  List<Comment> get comments => _comments!; */
+  List<Comment> get comments => _comments!;
 
   @action
   Future loadStudents(AppStore appStore) async {

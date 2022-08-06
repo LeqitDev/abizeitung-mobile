@@ -41,6 +41,56 @@ class RetryConnectionDialog {
   }
 }
 
+class DeleteCommentDialog {
+  bool _active = false;
+  final tstyle = const TextStyle(color: Color(0xFFFFFFFF));
+
+  void launchDialog(BuildContext context, Function func) {
+    if (_active) return;
+    _active = true;
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              "Kommentar löschen!",
+              style: tstyle,
+            ),
+            content: Text(
+              "Bist du dir sicher, dass du diesen Kommentar löschen willst?",
+              style: tstyle,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  _dismissDialog(context);
+                },
+                child: const Text("Nein"),
+                // style: ButtonStyle(backgroundColor: MaterialStateProp Color(0xFFACFCD9)),
+              ),
+              TextButton(
+                onPressed: () {
+                  func();
+                  _dismissDialog(context);
+                },
+                style: TextButton.styleFrom(
+                    backgroundColor: const Color(0xFFB02E0C)),
+                child: const Text(
+                  "Ja, löschen",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+            backgroundColor: const Color(0xFF3B413C),
+          );
+        });
+  }
+
+  _dismissDialog(context) {
+    Navigator.pop(context);
+  }
+}
+
 /* class AddCommentDialog {
   String addComment = "";
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

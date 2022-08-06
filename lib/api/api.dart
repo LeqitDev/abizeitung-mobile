@@ -63,7 +63,9 @@ class API {
     Map<String, dynamic> params = <String, dynamic>{};
     if (mainEndpoint.contains('?')) {
       endpoint.split('?')[1].split('&').forEach((element) {
-        params.addAll({element.split('=')[0]: element.split('=')[1]});
+        if (element.contains('=')) {
+          params.addAll({element.split('=')[0]: element.split('=')[1]});
+        }
       });
     }
     return Uri.http(_devIp, unencodedPath, params);
@@ -135,7 +137,9 @@ class API {
         appStore.setAppUser(jsonDecode(res.body));
         return AuthResult(state: ReturnState.successful, code: 0);
       } else {
-        if (userReq.state == ReturnState.successful) {
+        if (userReq.response?.statusCode == 401) {
+          return _authenticateFromStorage(appStore);
+        } else if (userReq.state == ReturnState.successful) {
           return AuthResult(state: ReturnState.login, code: 0);
         }
         return AuthResult(state: userReq.state, code: 1);

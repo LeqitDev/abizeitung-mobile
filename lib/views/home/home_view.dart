@@ -4,6 +4,7 @@ import 'package:abizeitung_mobile/assets/widgets/custom_bottom_navigation_bar.da
 import 'package:abizeitung_mobile/assets/widgets/custom_rounded_elevated_button.dart';
 import 'package:abizeitung_mobile/assets/widgets/form_widgets.dart';
 import 'package:abizeitung_mobile/stores/app/app_store.dart';
+import 'package:abizeitung_mobile/views/home/comment_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +33,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     _pages = <CustomPage>[
       CustomPage(
-        content: Container(),
+        content: Column(
+          children: const [
+            SizedBox(
+              height: 80.0,
+            ),
+            Expanded(
+              child: CommentPage(),
+            ),
+          ],
+        ),
         designWidgets: [
           Transform.translate(
             offset: const Offset(-50.0, -80.0),
