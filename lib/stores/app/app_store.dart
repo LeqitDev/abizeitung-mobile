@@ -44,6 +44,16 @@ abstract class _AppStore with Store {
   }
 
   @action
+  Future loadAllAndWait(AppStore appStore) async {
+    await loadAppUsersComments(appStore);
+    await loadStudentsAndTeachers(appStore);
+    // loadPhrases(appStore);
+    /* Future.delayed(const Duration(seconds: 10), () {
+      updateNewComments(_comments!, appStore);
+    }); */
+  }
+
+  @action
   void loadAll(AppStore appStore) {
     loadAppUsersComments(appStore);
     loadStudentsAndTeachers(appStore);
@@ -143,9 +153,7 @@ abstract class _AppStore with Store {
 
   @action
   Future updateAppUserComments(AppStore appStore) async {
-    haveComments = false;
     await loadAppUsersComments(appStore);
-    haveComments = true;
   }
 
   @computed

@@ -91,6 +91,8 @@ class Teacher extends BasicUser {
 }
 
 class AppUser extends User {
+  String? password;
+  List<dynamic>? profileColors;
   AppUser() : super();
 
   factory AppUser.json(Map<String, dynamic> json) {
@@ -102,7 +104,28 @@ class AppUser extends User {
     user.roles = json['roles'];
     user.lk = json['lk'];
     user.type = UserType.student;
+    user.password = json['password'];
+    user.profileColors = json['profileColors'];
     return user;
+  }
+
+  Map<String, dynamic> toJson(
+      {String? email,
+      List<String>? roles,
+      String? password,
+      String? username,
+      List<dynamic>? profileColors,
+      String? name,
+      String? lk}) {
+    return {
+      'email': email ?? this.email,
+      'roles': roles ?? this.roles,
+      'password': password ?? this.password,
+      'username': username ?? this.username,
+      'profileColors': profileColors ?? this.profileColors,
+      'name': name ?? this.name,
+      'lk': lk ?? this.lk,
+    };
   }
 }
 

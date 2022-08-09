@@ -6,13 +6,17 @@ class CustomTextField extends StatefulWidget {
   final String label;
   final String? Function(String?) validator;
   final Function(String?) onSave;
+  final String? value;
+  final Function(String?)? onChanged;
 
   const CustomTextField(
       {Key? key,
       this.password,
       required this.label,
       required this.validator,
-      required this.onSave})
+      required this.onSave,
+      this.value,
+      this.onChanged})
       : super(key: key);
 
   @override
@@ -40,40 +44,46 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      validator: widget.validator,
-      onTap: () {
-        _activeTextField = true;
-      },
-      maxLines: 1,
-      obscureText: _obscureText,
-      decoration: InputDecoration(
-        labelText: widget.label,
-        labelStyle: const TextStyle(
-          color: Colors.white,
+    return Focus(
+      child: TextFormField(
+        validator: widget.validator,
+        maxLines: 1,
+        obscureText: _obscureText,
+        initialValue: widget.value,
+        decoration: InputDecoration(
+          labelText: widget.label,
+          labelStyle: TextStyle(
+            color: Colors.white.withAlpha(225),
+          ),
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: primaryColor),
+          ),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: primaryColor),
+          ),
+          suffixIcon: _password && _activeTextField
+              ? GestureDetector(
+                  onTap: () {
+                    _toggleVisibility();
+                  },
+                  child: Icon(
+                    _obscureText ? Icons.visibility : Icons.visibility_off,
+                    color: primaryColor,
+                  ),
+                )
+              : null,
+          /* errorText: false ? 'Passwort falsch' : null, */
         ),
-        enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: primaryColor),
-        ),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: primaryColor),
-        ),
-        suffixIcon: _password && _activeTextField
-            ? GestureDetector(
-                onTap: () {
-                  _toggleVisibility();
-                },
-                child: Icon(
-                  _obscureText ? Icons.visibility : Icons.visibility_off,
-                  color: primaryColor,
-                ),
-              )
-            : null,
-        /* errorText: false ? 'Passwort falsch' : null, */
+        cursorColor: primaryColor,
+        style: const TextStyle(color: Colors.white),
+        onChanged: widget.onChanged,
+        onSaved: widget.onSave,
       ),
-      cursorColor: primaryColor,
-      style: const TextStyle(color: Colors.white),
-      onSaved: widget.onSave,
+      onFocusChange: (hasFocus) {
+        setState(() {
+          _activeTextField = hasFocus;
+        });
+      },
     );
   }
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
+const int boolListFlagAll = 0;
+const int boolListFlagOne = 1;
+
 Size getTextSize(String text, TextStyle style) {
   final textSpan = TextSpan(
     text: text,
@@ -29,4 +32,30 @@ double getScreenWidth(BuildContext context, {double? percentage}) {
 double getScreenHeight(BuildContext context, {double? percentage}) {
   double screenHeight = MediaQuery.of(context).size.height;
   return percentage != null ? percentage * screenHeight : screenHeight;
+}
+
+bool isBoolListTrue(List<bool> l, int flag, {bool? b}) {
+  bool retVal = false;
+  b = b ?? true;
+  switch (flag) {
+    case boolListFlagAll:
+      retVal = true;
+      for (var bfl in l) {
+        if (bfl != b) {
+          retVal = false;
+          break;
+        }
+      }
+      break;
+    case boolListFlagOne:
+      for (var bfl in l) {
+        if (bfl == b) {
+          retVal = true;
+          break;
+        }
+      }
+      break;
+    default:
+  }
+  return retVal;
 }

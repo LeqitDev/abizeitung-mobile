@@ -1,10 +1,9 @@
 import 'package:abizeitung_mobile/assets/assets.dart';
 import 'package:abizeitung_mobile/assets/widgets/custom_app_bar.dart';
 import 'package:abizeitung_mobile/assets/widgets/custom_bottom_navigation_bar.dart';
-import 'package:abizeitung_mobile/assets/widgets/custom_rounded_elevated_button.dart';
-import 'package:abizeitung_mobile/assets/widgets/form_widgets.dart';
 import 'package:abizeitung_mobile/stores/app/app_store.dart';
-import 'package:abizeitung_mobile/views/home/comment_view.dart';
+import 'package:abizeitung_mobile/views/comment/comment_view.dart';
+import 'package:abizeitung_mobile/views/comment/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  double _appBarHeightOffset = 134.0;
+  final double _appBarHeightOffset = 134.0;
   String name = "";
   int _pageIndex = 0;
 
@@ -84,11 +83,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           search: false,
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, SettingsPage.route());
+              },
               icon: const Icon(
                 Icons.settings,
                 color: primaryColor,
-                size: 42.0,
+                size: 34.0,
               ),
             ),
           ],

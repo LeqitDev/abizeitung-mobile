@@ -27,8 +27,8 @@ class _SplashPage extends State<SplashPage> {
     final authed = await appStore.api.authenticate(appStore);
 
     if (authed.state == ReturnState.successful) {
+      await appStore.loadAllAndWait(appStore);
       appStore.changeAuthenticationState(AuthenticationState.authenticated);
-      appStore.loadAll(appStore);
     } else if (authed.state == ReturnState.error) {
       RetryConnectionDialog().launchDialog(context, () {
         isAuthed();

@@ -6,12 +6,6 @@ import 'package:abizeitung_mobile/stores/app/app_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class _LoginData {
-  String username = '';
-  String password = '';
-  bool savePrefs = false;
-}
-
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -201,4 +195,10 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+class _LoginData {
+  String username = '';
+  String password = '';
+  bool savePrefs = false;
 }
