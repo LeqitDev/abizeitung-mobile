@@ -1,3 +1,4 @@
+import 'package:abizeitung_mobile/api/api.dart';
 import 'package:abizeitung_mobile/assets/assets.dart';
 import 'package:abizeitung_mobile/assets/widgets/custom_rounded_elevated_button.dart';
 import 'package:abizeitung_mobile/assets/widgets/form_widgets.dart';
@@ -338,16 +339,26 @@ class _SettingsPageState extends State<SettingsPage> {
                     if (_changePwData.newpw == _changePwData.pwrp) {
                       if (BCrypt.checkpw(
                           _changePwData.oldpw, appStore.appUser.password!)) {
-                        appStore.api.request(
+                        appStore.api
+                            .request(
                           'patch',
                           'users/${appStore.appUser.id}',
                           body: appStore.appUser.toJson(
                               password: BCrypt.hashpw(
                                   _changePwData.newpw, BCrypt.gensalt())),
-                        );
-                        appStore.api.logout();
-                        appStore.changeAuthenticationState(
-                            AuthenticationState.unauthenticated);
+                        )
+                            .then((retVal) {
+                          if (retVal.state == ReturnState.successful) {
+                            appStore.api.logout();
+                            appStore.changeAuthenticationState(
+                                AuthenticationState.unauthenticated);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'Etwas ist schiefgelaufen. Probiere es nochmal!')));
+                          }
+                        });
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

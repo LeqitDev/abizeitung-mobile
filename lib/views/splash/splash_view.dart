@@ -30,6 +30,7 @@ class _SplashPage extends State<SplashPage> {
       await appStore.loadAllAndWait(appStore);
       appStore.changeAuthenticationState(AuthenticationState.authenticated);
     } else if (authed.state == ReturnState.error) {
+      if (!mounted) return;
       RetryConnectionDialog().launchDialog(context, () {
         isAuthed();
       }, authed.code); // TODO: Fix this

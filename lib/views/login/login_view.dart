@@ -146,8 +146,9 @@ class _LoginPageState extends State<LoginPage> {
                                 onButtonPressed: () async {
                                   FocusScope.of(context)
                                       .requestFocus(FocusNode());
-                                  if (!_formKey.currentState!.validate())
+                                  if (!_formKey.currentState!.validate()) {
                                     return;
+                                  }
                                   _formKey.currentState!.save();
 
                                   final loggedin = await appStore.api
@@ -169,10 +170,19 @@ class _LoginPageState extends State<LoginPage> {
                                   } else {
                                     appStore.changeAuthenticationState(
                                         AuthenticationState.unauthenticated);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content: Text(
-                                                'Something went wrong! Please try again! Error Code: ${loggedin.code}')));
+                                    if (!mounted) return;
+                                    if (loggedin.code == 4010 ||
+                                        loggedin.code == 401) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  'Die Benutzerdaten sind Falsch!')));
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Text(
+                                                  'Irgendetwas ist schiefgelaufen! Probiere es nochmal! Error Code: ${loggedin.code}')));
+                                    }
                                   }
                                 },
                                 icon: const Icon(
