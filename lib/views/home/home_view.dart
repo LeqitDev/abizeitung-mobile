@@ -2,6 +2,7 @@ import 'package:abizeitung_mobile/assets/assets.dart';
 import 'package:abizeitung_mobile/assets/widgets/custom_app_bar.dart';
 import 'package:abizeitung_mobile/assets/widgets/custom_bottom_navigation_bar.dart';
 import 'package:abizeitung_mobile/stores/app/app_store.dart';
+import 'package:abizeitung_mobile/views/book/book_view.dart';
 import 'package:abizeitung_mobile/views/comment/comment_view.dart';
 import 'package:abizeitung_mobile/views/comment/settings_view.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +34,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _pages = <CustomPage>[
       CustomPage(
         content: Column(
+          mainAxisSize: MainAxisSize.max,
           children: const [
             SizedBox(
-              height: 80.0,
+              height: 70.0,
             ),
             Expanded(
               child: CommentPage(),
@@ -49,9 +51,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               width: 270.0,
               height: 270.0,
               decoration: const BoxDecoration(
-                color: primaryColor,
-                shape: BoxShape.circle,
-              ),
+                  color: primaryColor,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    defaultBoxShadow,
+                  ]),
             ),
           ),
           Transform.translate(
@@ -95,7 +99,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ],
         ),
       ),
-      CustomPage(content: Container()),
+      CustomPage(content: const BookPage()),
       CustomPage(content: Container()),
     ];
   }
@@ -118,7 +122,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             height: MediaQuery.of(context).size.height,
             color: secondaryColor,
           ),
-          ..._pages[_pageIndex].designWidgets ?? [],
           Scaffold(
             backgroundColor: const Color(0x00000000),
             appBar: _pages[_pageIndex].appBar,
@@ -129,6 +132,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 },
                 currentIndex: _pageIndex),
           ),
+          ..._pages[_pageIndex].designWidgets ?? [],
         ],
       ),
     );

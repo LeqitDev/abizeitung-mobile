@@ -52,16 +52,10 @@ class _SettingsPageState extends State<SettingsPage> {
           size: 34,
         ),
       ),
-      body: /* SizedBox(
-        width: getScreenWidth(context),
-        height: getScreenHeight(context),
-        child:  */
-          Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
         children: [
-          /* SingleChildScrollView(
-              child:  */
           Padding(
             padding: const EdgeInsets.only(
               left: 20.0,
@@ -92,6 +86,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold),
                         ),
+                        const Padding(padding: EdgeInsets.only(top: 8.0)),
                         CustomTextField(
                           label: 'Altes Passwort',
                           validator: (value) {
@@ -181,7 +176,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.only(top: 30.0),
                   child: Form(
                     key: _changeDataKey,
                     child: Column(
@@ -194,6 +189,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold),
                         ),
+                        const Padding(padding: EdgeInsets.only(top: 8.0)),
                         CustomTextField(
                           label: 'Name',
                           value: _name,
@@ -257,7 +253,6 @@ class _SettingsPageState extends State<SettingsPage> {
               ],
             ),
           ),
-          // ),
           Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
             child: ElevatedButton(
@@ -278,7 +273,6 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ],
       ),
-      // ),
       floatingActionButton: (isBoolListTrue(_changedData, boolListFlagOne) ||
               isBoolListTrue(_changedPw, boolListFlagAll))
           ? Padding(

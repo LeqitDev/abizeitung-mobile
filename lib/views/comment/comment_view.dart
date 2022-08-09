@@ -75,25 +75,21 @@ class _CommentPageState extends State<CommentPage> {
               end: Alignment.bottomCenter,
               colors: const [
                 secondaryColor,
-                Colors.transparent,
-                Colors.transparent,
-                Colors.black,
+                Color.fromARGB(0, 0, 0, 0),
               ],
               stops: [
                 0.0,
-                0.3 *
+                0.2 *
                     (_scrollController.offset / 30)
                         .clamp(0, 1), // fading top if scolling
-                0.9999,
-                1.0
-              ], // 10% purple, 80% transparent, 10% purple
+              ],
             ).createShader(rect);
           },
           blendMode: BlendMode.dstOut,
           child: ListView(
             controller: _scrollController,
             shrinkWrap: true,
-            padding: const EdgeInsets.only(top: 60.0),
+            padding: const EdgeInsets.only(top: 70.0),
             children: children,
           ),
         );

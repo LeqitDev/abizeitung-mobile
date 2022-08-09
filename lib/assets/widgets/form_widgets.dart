@@ -72,6 +72,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   ),
                 )
               : null,
+          contentPadding: const EdgeInsets.symmetric(vertical: 6.0),
           /* errorText: false ? 'Passwort falsch' : null, */
         ),
         cursorColor: primaryColor,
