@@ -42,6 +42,7 @@ class _SplashPage extends State<SplashPage> with TickerProviderStateMixin {
     final authed = await appStore.api.authenticate(appStore);
 
     if (authed.state == ReturnState.successful) {
+      _animationController.stop();
       await appStore.loadAllAndWait(appStore);
       appStore.changeAuthenticationState(AuthenticationState.authenticated);
     } else if (authed.state == ReturnState.error) {
@@ -52,6 +53,7 @@ class _SplashPage extends State<SplashPage> with TickerProviderStateMixin {
         isAuthed();
       }, authed.code);
     } else {
+      _animationController.stop();
       appStore.changeAuthenticationState(AuthenticationState.unauthenticated);
     }
   }

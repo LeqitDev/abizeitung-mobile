@@ -86,11 +86,19 @@ class _CommentPageState extends State<CommentPage> {
             ).createShader(rect);
           },
           blendMode: BlendMode.dstOut,
-          child: ListView(
-            controller: _scrollController,
-            shrinkWrap: true,
-            padding: const EdgeInsets.only(top: 70.0),
-            children: children,
+          child: ScrollConfiguration(
+            behavior: const ScrollBehavior(),
+            child: GlowingOverscrollIndicator(
+              axisDirection: AxisDirection.down,
+              color: secondaryColor,
+              child: ListView(
+                controller: _scrollController,
+                physics: const ClampingScrollPhysics(),
+                shrinkWrap: true,
+                padding: const EdgeInsets.only(top: 70.0),
+                children: children,
+              ),
+            ),
           ),
         );
       }
