@@ -18,9 +18,11 @@ const defaultBoxShadow = BoxShadow(
     blurRadius: 4.0,
     color: Color(0x44000000),
     offset: Offset(0, 4));
+
 const primaryColor = Color(0xFFACFCD9);
 const secondaryColor = Color(0xFF3B413C);
 const lighterSecondaryColor = Color(0xFF68736A);
+const accentColor = Color(0xFF340068);
 
 enum Side { left, right }
 

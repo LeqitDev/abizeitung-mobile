@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
               width: 58,
               height: 58,
               decoration: const BoxDecoration(
-                color: Color(0xFF340068),
+                color: accentColor,
                 shape: BoxShape.circle,
               ),
             ),

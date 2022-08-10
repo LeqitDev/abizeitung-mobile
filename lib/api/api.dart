@@ -126,7 +126,9 @@ class API {
         authenticate:
             true); // will throw api error but only test if token is not exceeded
 
-    if (tokenReq.response?.statusCode != 401) {
+    if (tokenReq.response?.statusCode == null) {
+      return AuthResult(state: tokenReq.state, code: -1);
+    } else if (tokenReq.response?.statusCode != 401) {
       _token = token;
       final username = await _storage.read(key: 'username');
       final userReq = await request('get', 'users/noid/$username');
