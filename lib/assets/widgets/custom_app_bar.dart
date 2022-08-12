@@ -9,6 +9,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.actions,
     this.title,
     this.backButton,
+    this.searchString,
   })  : preferredSize = const Size.fromHeight(50.0),
         super(key: key);
 
@@ -20,6 +21,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final Widget? title;
   final bool? backButton;
+  final String? searchString;
 
   @override
   State<CustomAppBar> createState() => _CustomAppBarState();
@@ -28,6 +30,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 class _CustomAppBarState extends State<CustomAppBar>
     with TickerProviderStateMixin {
   late final AnimationController _animationController;
+  late final TextEditingController _textEditingController;
 
   bool _showSearchField = false;
 
@@ -41,6 +44,7 @@ class _CustomAppBarState extends State<CustomAppBar>
       ..addListener(() {
         setState(() {});
       });
+    _textEditingController = TextEditingController();
   }
 
   @override

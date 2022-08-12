@@ -1,5 +1,6 @@
 import 'package:abizeitung_mobile/api/api.dart';
 import 'package:abizeitung_mobile/models/comment_model.dart';
+import 'package:abizeitung_mobile/models/phrase_model.dart';
 import 'package:abizeitung_mobile/models/user_model.dart';
 import 'package:mobx/mobx.dart';
 
@@ -16,7 +17,7 @@ abstract class _AppStore with Store {
   List<User>? _students;
   List<Teacher>? _teachers;
   List<Comment>? _comments;
-  // List<Phrase>? _phrases;
+  List<Phrase>? _phrases;
 
   @observable
   AuthenticationState state = AuthenticationState.unknown;
@@ -47,7 +48,7 @@ abstract class _AppStore with Store {
   Future loadAllAndWait(AppStore appStore) async {
     await loadAppUsersComments(appStore);
     await loadStudentsAndTeachers(appStore);
-    // loadPhrases(appStore);
+    loadPhrases(appStore);
     /* Future.delayed(const Duration(seconds: 10), () {
       updateNewComments(_comments!, appStore);
     }); */
@@ -57,7 +58,7 @@ abstract class _AppStore with Store {
   void loadAll(AppStore appStore) {
     loadAppUsersComments(appStore);
     loadStudentsAndTeachers(appStore);
-    // loadPhrases(appStore);
+    loadPhrases(appStore);
     /* Future.delayed(const Duration(seconds: 10), () {
       updateNewComments(_comments!, appStore);
     }); */
@@ -195,13 +196,13 @@ abstract class _AppStore with Store {
     }
   }
 
-  /* Future loadPhrases(AppStore appStore) async {
+  Future loadPhrases(AppStore appStore) async {
     _phrases = await Phrase().getPhrases(appStore);
     if (_phrases != null) havePhrases = true;
   }
 
   @computed
-  List<Phrase> get phrases => _phrases!; */
+  List<Phrase> get phrases => _phrases!;
 
   @action
   Future<List<User>> getStudentsAS(AppStore appStore) async {

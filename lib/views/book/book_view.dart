@@ -1,4 +1,5 @@
 import 'package:abizeitung_mobile/assets/assets.dart';
+import 'package:abizeitung_mobile/views/phrases/phrases_view.dart';
 import 'package:abizeitung_mobile/views/profiles/profiles_view.dart';
 import 'package:flutter/material.dart';
 
@@ -30,8 +31,12 @@ class _BookPageState extends State<BookPage> {
                   first: true,
                   iconSize: 50)),
           Expanded(
-              child: bigButton(() => null, 'Sprüche', Icons.chat_bubble,
-                  last: true, iconSize: 40)),
+              child: bigButton(
+                  () => Navigator.push(context, PhrasesPage.route()),
+                  'Sprüche',
+                  Icons.chat_bubble,
+                  last: true,
+                  iconSize: 40)),
         ],
       ),
     );

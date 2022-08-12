@@ -33,6 +33,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
       appBar: CustomAppBar(
         search: true,
         backButton: true,
+        searchString: _searchString,
         onChanged: (value) {
           setState(() {
             _searchString = value;

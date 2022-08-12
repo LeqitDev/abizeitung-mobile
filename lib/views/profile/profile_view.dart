@@ -96,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               controller: _scrollController,
                               physics: const ClampingScrollPhysics(),
                               shrinkWrap: true,
-                              padding: const EdgeInsets.only(bottom: 60.0),
+                              padding: const EdgeInsets.only(bottom: 80.0),
                               itemCount: comments.length,
                               itemBuilder: (context, index) {
                                 final comment = comments[index];
@@ -189,8 +189,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                       horizontal: 10.0, vertical: 6.0),
                                   child: ListTileTheme(
                                     textColor: Colors.white,
-                                    contentPadding:
-                                        const EdgeInsets.only(left: 14.0),
+                                    contentPadding: EdgeInsets.only(
+                                        left: 14.0,
+                                        right: !(comment.authorid ==
+                                                    appStore.appUser.getID ||
+                                                appStore.appUser.getRoles
+                                                    .contains("ROLE_ADMIN"))
+                                            ? 14.0
+                                            : 0.0),
                                     child: ListTile(
                                       title: Text(comment.getComment),
                                       trailing: trailing(
