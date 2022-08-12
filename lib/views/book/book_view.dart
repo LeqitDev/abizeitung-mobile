@@ -1,4 +1,5 @@
 import 'package:abizeitung_mobile/assets/assets.dart';
+import 'package:abizeitung_mobile/views/profiles/profiles_view.dart';
 import 'package:flutter/material.dart';
 
 class BookPage extends StatefulWidget {
@@ -22,18 +23,22 @@ class _BookPageState extends State<BookPage> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Expanded(
-              child:
-                  bigButton(() => null, 'Profile', Icons.person, first: true)),
+              child: bigButton(
+                  () => Navigator.push(context, ProfilesPage.route()),
+                  'Profile',
+                  Icons.person,
+                  first: true,
+                  iconSize: 50)),
           Expanded(
               child: bigButton(() => null, 'Sprüche', Icons.chat_bubble,
-                  last: true)),
+                  last: true, iconSize: 40)),
         ],
       ),
     );
   }
 
   Widget bigButton(Function() onPressed, String label, IconData icon,
-      {bool? last, bool? first}) {
+      {bool? last, bool? first, double? iconSize}) {
     double normalPadding = 30.0;
     EdgeInsetsGeometry padding = EdgeInsets.symmetric(
         horizontal: normalPadding, vertical: normalPadding / 2);
@@ -61,7 +66,7 @@ class _BookPageState extends State<BookPage> {
             children: [
               Icon(
                 icon,
-                size: 40,
+                size: iconSize ?? 40,
               ),
               Text(
                 label,

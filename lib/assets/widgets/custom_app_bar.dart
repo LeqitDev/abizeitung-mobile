@@ -8,7 +8,8 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
     required this.search,
     this.actions,
     this.title,
-  })  : preferredSize = const Size.fromHeight(110.0),
+    this.backButton,
+  })  : preferredSize = const Size.fromHeight(50.0),
         super(key: key);
 
   @override
@@ -18,6 +19,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final bool search;
   final List<Widget>? actions;
   final Widget? title;
+  final bool? backButton;
 
   @override
   State<CustomAppBar> createState() => _CustomAppBarState();
@@ -49,28 +51,31 @@ class _CustomAppBarState extends State<CustomAppBar>
 
   @override
   Widget build(BuildContext context) {
+    final searchField = TextField(
+      decoration: const InputDecoration(
+        hintText: 'Suchen...',
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: primaryColor),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: primaryColor),
+        ),
+        hintStyle: TextStyle(color: Colors.white),
+      ),
+      cursorColor: primaryColor,
+      style: const TextStyle(color: Colors.white),
+      onChanged: widget.onChanged,
+      autofocus: true,
+    );
+
     return AppBar(
       toolbarHeight: 50,
       backgroundColor: const Color(0x00000000),
       elevation: 0,
-      title: widget.search
+      title: widget.search && _showSearchField
           ? Opacity(
               opacity: _animationController.value,
-              child: TextField(
-                decoration: const InputDecoration(
-                  hintText: 'Suchen...',
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: primaryColor),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: primaryColor),
-                  ),
-                  hintStyle: TextStyle(color: Colors.white),
-                ),
-                cursorColor: primaryColor,
-                style: const TextStyle(color: Colors.white),
-                onChanged: widget.onChanged,
-              ),
+              child: searchField,
             )
           : widget.title,
       actions: [
@@ -80,20 +85,29 @@ class _CustomAppBarState extends State<CustomAppBar>
                   setState(() {
                     _showSearchField = !_showSearchField;
                     if (_showSearchField) {
+                      FocusScope.of(context)
+                          .requestFocus(searchField.focusNode);
                       _animationController.forward();
                     } else {
+                      searchField.focusNode?.unfocus();
                       _animationController.reverse();
                     }
                   });
                 },
-                icon: const Icon(
-                  Icons.search,
+                icon: Icon(
+                  _showSearchField ? Icons.check : Icons.search,
                   color: primaryColor,
-                  size: 42.0,
+                  size: 34.0,
                 ))
             : Container(),
         ...widget.actions ?? [],
       ],
+      iconTheme: widget.backButton != null
+          ? const IconThemeData(
+              color: primaryColor,
+              size: 34.0,
+            )
+          : null,
     );
   }
 }

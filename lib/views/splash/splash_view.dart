@@ -32,7 +32,7 @@ class _SplashPage extends State<SplashPage> with TickerProviderStateMixin {
           ..forward()
           ..repeat(reverse: true);
     _backgroundAnimation =
-        ColorTween(begin: Colors.transparent, end: accentColor.withAlpha(25))
+        ColorTween(begin: Colors.transparent, end: const Color(0xFF94F3C5))
             .animate(CurvedAnimation(
                 parent: _animationController, curve: Curves.easeInOut));
   }
@@ -105,46 +105,5 @@ class _SplashPage extends State<SplashPage> with TickerProviderStateMixin {
         ),
       ],
     );
-
-    /* return FutureBuilder(
-      future: appStore.api.tryAuthenticationFromStore(),
-      builder: ((context, snapshot) {
-        if (snapshot.hasData) {
-          print(snapshot.data);
-          if (snapshot.data == true) {
-            setState(() {
-              appStore
-                  .changeAuthenticationState(AuthenticationState.authenticated);
-            });
-            /* Future.microtask(
-                () => Navigator.pushReplacementNamed(context, '/app')); */
-          } else {
-            appStore
-                .changeAuthenticationState(AuthenticationState.unauthenticated);
-            print("unauthed" + appStore.state.toString());
-            //Navigator.pushReplacementNamed(context, '/login');
-          }
-          print("${appStore.state}");
-          return Scaffold(
-            body: const Center(child: CircularProgressIndicator()),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                appStore.changeAuthenticationState(
-                    AuthenticationState.unauthenticated);
-                Future.delayed(Duration(seconds: 1));
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/login', (route) => false);
-              },
-              tooltip: 'Add comment',
-              child: const Icon(Icons.add),
-            ),
-          );
-        } else {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        }
-      }),
-    ); */
   }
 }

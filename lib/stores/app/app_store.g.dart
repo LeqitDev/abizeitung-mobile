@@ -21,6 +21,13 @@ mixin _$AppStore on _AppStore, Store {
   AppUser get appUser => (_$appUserComputed ??=
           Computed<AppUser>(() => super.appUser, name: '_AppStore.appUser'))
       .value;
+  Computed<List<Comment>>? _$commentsComputed;
+
+  @override
+  List<Comment> get comments =>
+      (_$commentsComputed ??= Computed<List<Comment>>(() => super.comments,
+              name: '_AppStore.comments'))
+          .value;
   Computed<List<User>>? _$studentsComputed;
 
   @override
@@ -120,6 +127,33 @@ mixin _$AppStore on _AppStore, Store {
     _$havePhrasesAtom.reportWrite(value, super.havePhrases, () {
       super.havePhrases = value;
     });
+  }
+
+  late final _$loadAllAndWaitAsyncAction =
+      AsyncAction('_AppStore.loadAllAndWait', context: context);
+
+  @override
+  Future<dynamic> loadAllAndWait(AppStore appStore) {
+    return _$loadAllAndWaitAsyncAction
+        .run(() => super.loadAllAndWait(appStore));
+  }
+
+  late final _$loadAppUsersCommentsAsyncAction =
+      AsyncAction('_AppStore.loadAppUsersComments', context: context);
+
+  @override
+  Future<dynamic> loadAppUsersComments(AppStore appStore) {
+    return _$loadAppUsersCommentsAsyncAction
+        .run(() => super.loadAppUsersComments(appStore));
+  }
+
+  late final _$updateAppUserCommentsAsyncAction =
+      AsyncAction('_AppStore.updateAppUserComments', context: context);
+
+  @override
+  Future<dynamic> updateAppUserComments(AppStore appStore) {
+    return _$updateAppUserCommentsAsyncAction
+        .run(() => super.updateAppUserComments(appStore));
   }
 
   late final _$loadStudentsAsyncAction =
@@ -229,6 +263,7 @@ haveTeachers: ${haveTeachers},
 havePhrases: ${havePhrases},
 api: ${api},
 appUser: ${appUser},
+comments: ${comments},
 students: ${students},
 teachers: ${teachers},
 studentsAndTeachers: ${studentsAndTeachers}

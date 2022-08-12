@@ -8,6 +8,9 @@ class CustomTextField extends StatefulWidget {
   final Function(String?) onSave;
   final String? value;
   final Function(String?)? onChanged;
+  final Function(String)? onFieldSubmitted;
+  final Widget? suffixIcon;
+  final bool? autofocus;
 
   const CustomTextField(
       {Key? key,
@@ -16,7 +19,10 @@ class CustomTextField extends StatefulWidget {
       required this.validator,
       required this.onSave,
       this.value,
-      this.onChanged})
+      this.onChanged,
+      this.onFieldSubmitted,
+      this.suffixIcon,
+      this.autofocus})
       : super(key: key);
 
   @override
@@ -71,7 +77,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     color: primaryColor,
                   ),
                 )
-              : null,
+              : widget.suffixIcon != null && _activeTextField
+                  ? widget.suffixIcon
+                  : null,
           contentPadding: const EdgeInsets.symmetric(vertical: 6.0),
           /* errorText: false ? 'Passwort falsch' : null, */
         ),
@@ -79,6 +87,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
         style: const TextStyle(color: Colors.white),
         onChanged: widget.onChanged,
         onSaved: widget.onSave,
+        onFieldSubmitted: widget.onFieldSubmitted,
+        autofocus: widget.autofocus ?? false,
       ),
       onFocusChange: (hasFocus) {
         setState(() {
